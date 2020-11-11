@@ -2,8 +2,8 @@
 
 ft_strcmp:
 	mov rax, -1
-	xor edx,edx
-	xor ecx,ecx
+	xor rdx,rdx
+	xor rcx,rcx
 
 .loop:
 	inc rax
@@ -18,7 +18,7 @@ ft_strcmp:
 	loop .loop
 
 .end:
-	sub edx, ecx
-	mov eax, edx
+	sub rdx, rcx
+	mov rax, rdx
 	ret
 	

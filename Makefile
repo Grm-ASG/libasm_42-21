@@ -6,7 +6,7 @@
 #    By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/10 18:08:39 by imedgar           #+#    #+#              #
-#    Updated: 2020/11/10 21:51:49 by imedgar          ###   ########.fr        #
+#    Updated: 2020/11/11 14:36:22 by imedgar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ NAME		=	libasm.a
 
 SRC			=	ft_strlen.s	\
 				ft_strcpy.s	\
-				ft_strcmp.s
+				ft_strcmp.s	\
+				ft_write.s	\
+				ft_read.s
 
 TEST_SRC	=	main.c
 
@@ -24,7 +26,7 @@ TEST_OBJ	=	$(TEST_SRC:.c=.o)
 AC			=	nasm
 AFLAGS		=	-f elf64 -g
 GCC			=	gcc
-CFLAGS		=	-g #-Wall -Wextra -Werror
+CFLAGS		=	-g -no-pie #-Wall -Wextra -Werror
 RM			=	rm -f
 AR			=	ar rcs
 
