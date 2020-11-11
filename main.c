@@ -6,9 +6,11 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 18:39:42 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/11 16:42:35 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/11 21:53:27 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#define BONUS
 
 #include "libasm.h"
 #include <stdio.h>
@@ -23,9 +25,12 @@ void	ft_check_strcpy(char *s[]);
 void	ft_check_strcmp(void);
 void	ft_check_write(char *s[]);
 void	ft_check_read(char *s[]);
+void	ft_check_strdup(char *s[]);
+void	ft_check_list_size(void);
 
 int		main(void)
 {
+	t_list	list;
 	char *s[3] =
 	{
 		"",
@@ -48,9 +53,11 @@ int		main(void)
 	};
 	//ft_check_strlen(s);
 	//ft_check_strcpy(s);
-	ft_check_strcmp();
+	//ft_check_strcmp();
 	//ft_check_write(s);
 	//ft_check_read(s);
+	//ft_check_strdup(s);
+	ft_check_list_size();
 	return (0);
 }
 
@@ -109,24 +116,11 @@ void	ft_check_strcmp(void)
  		printf("orig strcmp = %d\n", strcmp(s[i], s[i+1]));
  		printf("asm  strcmp = %d\n\n", ft_strcmp(s[i], s[i+1]));
 	}
-	printf("orig strcmp = %d\n", strcmp(s[1], s[1]));
-	printf("asm  strcmp = %d\n\n", ft_strcmp(s[1], s[1]));
-
-	int x, y;
-	for (int j = 0; j <= 127; ++j)
-	{
-		x = strcmp((char *)&j, (char *)&j);
-		y = ft_strcmp((char *)&j, (char *)&j);
-		if (x != y)
-		{
-			printf("j		= %d\n", j);
-			printf("orig strcmp	= %d\n", x);
-			printf("asm  strcmp	= %d\n\n", y);
-		}
-	}
+	printf("orig strcmp = %d\n", strcmp("\x01", "\x01"));
+	printf("asm  strcmp = %d\n\n", ft_strcmp("\x01", "\x01"));
 }
 
-#define WRITE_CONF fd, "hello", 1
+#define WRITE_CONF 42, "bonjour", 7
 
 void	ft_check_write(char *s[])
 {
@@ -135,9 +129,9 @@ void	ft_check_write(char *s[])
 	for (int i = 0; i < 3; ++i)
 	{
 		printf("\nLOOP NUMBER %d\n", i);
-		printf("asm_write ret		= %d\n", ft_write(WRITE_CONF));
+		printf("asm_write ret		= %ld\n", ft_write(WRITE_CONF));
 		printf("asm_errno status	= %d\n", errno);
-		printf("write ret		= %d\n", write(WRITE_CONF));
+		printf("write ret		= %ld\n", write(WRITE_CONF));
 		printf("errno status		= %d\n", errno);
 		//write(1, s[i], strlen(s[i]));
 		//write(1, "\n", 1);
@@ -158,9 +152,9 @@ void	ft_check_read(char *s[])
 	for (int i = 0; i < 3; ++i)
 	{
 		printf("\nLOOP NUMBER %d\n", i);
-		printf("asm_write ret		= %d\n", ft_read(READ_CONF));
+		printf("asm_write ret		= %ld\n", ft_read(READ_CONF));
 		printf("asm_errno status	= %d\n", errno);
-		printf("write ret		= %d\n", read(READ_CONF));
+		printf("write ret		= %ld\n", read(READ_CONF));
 		printf("errno status		= %d\n", errno);
 		//write(1, s[i], strlen(s[i]));
 		//write(1, "\n", 1);
@@ -168,4 +162,40 @@ void	ft_check_read(char *s[])
 		//write(1, "\n", 1);
 		//write(1, "\n\n", 2);
 	}
+}
+
+void	ft_check_strdup(char *s[])
+{
+	char *string;
+	for (int i = 0; i < 3; ++i)
+	{
+		printf("%s\n", (string = strdup(s[i])));
+		free(string);
+		printf("%s\n", (string = ft_strdup(s[i])));
+		free(string);
+	}
+}
+
+#define NUMBER 0
+
+void	ft_check_list_size(void)
+{
+	t_list *list;
+	t_list *head;
+	t_list *tmp;
+
+	head = NULL;
+	tmp = NULL;
+	for (int i = 0; i < NUMBER; ++i)
+	{
+		
+		list = malloc(sizeof(t_list));
+		if (tmp)
+			tmp->next = list;
+		list->next = NULL;
+		tmp = list;
+		if (i == 0)
+			head = list;
+	}
+	printf("size of list = %d\n", ft_list_size(head));
 }

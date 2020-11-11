@@ -15,7 +15,7 @@ ft_strcmp:
 	je .end
 	cmp dl,cl
 	jne .end
-	loop .loop
+	jmp .loop
 
 .end:
 	sub rdx, rcx
