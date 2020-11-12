@@ -5,7 +5,7 @@ ft_read:
 	xor rax, rax 			;	rax = 0
 	syscall					;	call read func
 	cmp rax, 0				;	if read ret < 0
-	je .error				;	jump to .error
+	jl .error				;	jump to .error
 	ret						;	return rax
 
 .error:
