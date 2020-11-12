@@ -6,7 +6,7 @@
 #    By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/10 18:08:39 by imedgar           #+#    #+#              #
-#    Updated: 2020/11/11 21:57:51 by imedgar          ###   ########.fr        #
+#    Updated: 2020/11/12 14:46:37 by imedgar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,65 +19,64 @@ SRC			=	ft_strlen.s	\
 				ft_read.s	\
 				ft_strdup.s
 
-SRC_BONUS	=	ft_list_size_bonus.s
+SRC_BNS		=	ft_list_size_bonus.s		\
+				ft_list_push_front_bonus.s
 
 SRC_TEST	=	main.c
 
 DIR_SRC		=	srcs/
-DIR_SRCBNS	=	bonus/
+DIR_SRCBNS	=	bns/
 DIR_OBJ		=	obj/
 DIR_INC		=	includes/
 
 OBJ			=	$(addprefix $(DIR_OBJ),$(SRC:.s=.o))
-OBJ_BNS		=	$(addprefix $(DIR_SRCBNS),$(SRC_BONUS:.s=.o))
 OBJ_TEST	=	$(SRC_TEST:.c=.o)
 
 AS			=	nasm
 ASFLAGS		=	-gdwarf -f elf64 -I $(DIR_INC)
 GCC			=	gcc
-CFLAGS		=	-g -no-pie -I $(DIR_INC)#-Wall -Wextra -Werror
+CFLAGS		=	-g -no-pie  -I $(DIR_INC) #-Wall -Wextra -Werror
 RM			=	rm -f
 AR			=	ar rcs
 
 ifeq ($(BONUS), YES)
-REQ			=	make_dir $(OBJ) $(OBJ_BNS)
-OBJ_FILES	=	$(OBJ) $(OBJ_BNS)
-else
-REQ			=	make_dir $(OBJ)
-OBJ_FILES	=	$(OBJ)
+SRC			+= $(SRC_BNS)
+CFLAGS		+= -D BONUS_PART
 endif
 
 all: $(NAME)
 
-$(NAME): $(REQ)
-	$(AR) $@ $(OBJ_FILES)
+$(NAME): $(DIR_OBJ) $(OBJ)
+	$(AR) $@ $(OBJ)
 
 $(DIR_OBJ)%.o: $(DIR_SRC)%.s
 	$(AS) $(ASFLAGS) -o $@ $<
 
-$(DIR_SRCBNS)%.o: $(SRC_BONUS)%.s
+$(DIR_OBJ)%_bonus.o: $(DIR_SRCBNS)%_bonus.s
 	$(AS) $(ASFLAGS) -o $@ $<
 
-make_dir:
+$(DIR_OBJ):
 	mkdir -p $(DIR_OBJ)
 
 clean:
-	$(RM) $(OBJ) test
 	$(RM) -r $(DIR_OBJ)
 
 fclean: clean
-	$(RM) $(NAME) $(OBJ_TEST)
+	$(RM) $(NAME) $(OBJ_TEST) test
 
 re: fclean all
 
 bonus:
 	$(MAKE) BONUS="YES" all --no-print-directory
-
-test: test_compile
+	
+test: fclean test_compile
 	./test | cat -e
 
 test_compile: $(NAME) $(OBJ_TEST)
 	$(GCC) $(CFLAGS) $(OBJ_TEST) -o test -L. -lasm
 
-.PHONY: all clean fclean re run test_compile test make_dir bonus
+test_bonus:
+	$(MAKE) BONUS="YES" test --no-print-directory
+
+.PHONY: all clean fclean re run test_compile test bonus test_bonus
 .SILENT: bonus
