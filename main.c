@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 18:39:42 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/12 13:59:19 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/12 14:51:45 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,23 +54,28 @@ int		main(void)
 	/*
 	**		Mandantory part
 	*/
-	ft_check_strlen(s);
-	ft_check_strcpy(s);
-	ft_check_strcmp();
-	ft_check_write(s);
-	ft_check_read(s);
-	ft_check_strdup(s);
+
+	#ifndef BONUS_PART
+		ft_check_strlen(s);
+		ft_check_strcpy(s);
+		ft_check_strcmp();
+		ft_check_write(s);
+		ft_check_read(s);
+		ft_check_strdup(s);
+	#endif
 
 	/*
 	**		Bonus part
 	*/
+
 	#ifdef BONUS_PART
-	ft_check_list_size();
-	ft_check_list_push_front();
+		ft_check_list_size();
+		ft_check_list_push_front();
 	#endif
 	return (0);
 }
 
+#ifndef BONUS_PART
 void	ft_check_strlen(char *s[])
 {
 	for (int i = 0; i < 3; ++i)
@@ -175,10 +180,11 @@ void	ft_check_strdup(char *s[])
 		free(string);
 	}
 }
-
-#define NUMBER 0
+#endif
 
 #ifdef BONUS_PART
+
+#define NUMBER 0
 void	ft_check_list_size(void)
 {
 	t_list *list;
