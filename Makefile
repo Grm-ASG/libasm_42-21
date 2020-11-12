@@ -6,7 +6,7 @@
 #    By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/10 18:08:39 by imedgar           #+#    #+#              #
-#    Updated: 2020/11/12 16:53:17 by imedgar          ###   ########.fr        #
+#    Updated: 2020/11/12 23:09:40 by imedgar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,7 @@ SRC			=	ft_strlen.s	\
 				ft_strdup.s
 
 SRC_BNS		=	ft_list_size_bonus.s		\
-				ft_list_push_front_bonus.s	\
-				ft_list_remove_if_bonus.s
+				ft_list_push_front_bonus.s	
 
 SRC_TEST	=	main.c
 

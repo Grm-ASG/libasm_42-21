@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 18:39:42 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/12 16:22:15 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/12 23:10:01 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int		main(void)
 	*/
 
 	#ifdef BONUS_PART
-		//ft_check_list_size();
+		ft_check_list_size();
 		ft_check_list_push_front();
 	#endif
 	return (0);
@@ -208,13 +208,13 @@ void	ft_check_list_size(void)
 void 	ft_check_list_push_front(void)
 {
 	t_list *head;
-	int value = 100;
+	long value = 100;
 
 	head = NULL;
 	printf("Adr_head	= %p\n", head);
-	printf("data		= %d\n\n", value);
+	printf("data		= %ld\n\n", value);
 
-	ft_list_push_front(&head, &value);
+	ft_list_push_front(&head, (void *)value);
 	printf("Adr_head	= %p\n", head);
 	int x = *((int*)(&head->data));
 	printf("head->data	= %d\n\n", x);
