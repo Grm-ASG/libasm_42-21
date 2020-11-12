@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 18:39:42 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/12 15:40:53 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/12 16:22:15 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,15 @@
 void	ft_check_strlen(char *s[]);
 void	ft_check_strcpy(char *s[]);
 void	ft_check_strcmp(void);
-void	ft_check_write(char *s[]);
-void	ft_check_read(char *s[]);
+void	ft_check_write(void);
+void	ft_check_read(void);
 void	ft_check_strdup(char *s[]);
 void	ft_check_list_size(void);
 void	ft_check_list_push_front(void);
 
 int		main(void)
 {
+	#ifndef BONUS_PART
 	char *s[3] =
 	{
 		"",
@@ -55,12 +56,11 @@ int		main(void)
 	**		Mandantory part
 	*/
 
-	#ifndef BONUS_PART
 		ft_check_strlen(s);
 		ft_check_strcpy(s);
 		ft_check_strcmp();
-		ft_check_write(s);
-		ft_check_read(s);
+		ft_check_write();
+		ft_check_read();
 		ft_check_strdup(s);
 	#endif
 
@@ -137,10 +137,8 @@ void	ft_check_strcmp(void)
 
 #define WRITE_CONF 42, "bonjour", 7
 
-void	ft_check_write(char *s[])
+void	ft_check_write(void)
 {
-	int fd = 2;
-	
 	for (int i = 0; i < 3; ++i)
 	{
 		printf("\nLOOP NUMBER %d\n", i);
@@ -153,7 +151,7 @@ void	ft_check_write(char *s[])
 
 #define READ_CONF fd, buf, 1
 
-void	ft_check_read(char *s[])
+void	ft_check_read()
 {
 	char	buf[1000];
 	int		fd = 1;
@@ -218,6 +216,7 @@ void 	ft_check_list_push_front(void)
 
 	ft_list_push_front(&head, &value);
 	printf("Adr_head	= %p\n", head);
-	printf("head->data	= %d\n\n", (int *)head->data);
+	int x = *((int*)(&head->data));
+	printf("head->data	= %d\n\n", x);
 }
 #endif
