@@ -9,10 +9,9 @@ ft_write:
 	ret						; return rax (number of writen characters)
 
 .error:
-	neg rax
-	push rax
-	call __errno_location
-	pop	rdx
-	mov	[rax], rdx
-    mov rax, -1				; rax = -1
-    ret						; return rax
+	neg rax					;	rax = rax * -1
+	mov rdx, rax			;	rdx = rax
+	call __errno_location	;	rax = &errno
+	mov	[rax], rdx			;	errno = rdx
+    mov rax, -1				;	rax = -1
+    ret						;	return rax
