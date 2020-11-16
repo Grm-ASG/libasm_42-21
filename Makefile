@@ -6,7 +6,7 @@
 #    By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/10 18:08:39 by imedgar           #+#    #+#              #
-#    Updated: 2020/11/12 23:09:40 by imedgar          ###   ########.fr        #
+#    Updated: 2020/11/16 08:56:56 by imedgar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,7 @@ bonus:
 	$(MAKE) BONUS="YES" all --no-print-directory
 	
 test: fclean test_compile
-	./test | cat -e
+	./test
 
 test_compile: $(NAME) $(OBJ_TEST)
 	@$(GCC) $(CFLAGS) $(OBJ_TEST) -o test -L. -lasm

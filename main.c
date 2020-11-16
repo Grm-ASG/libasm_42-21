@@ -6,11 +6,9 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 18:39:42 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/12 23:10:01 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/16 11:35:46 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#define BONUS
 
 #include "libasm.h"
 #include <stdio.h>
@@ -56,11 +54,11 @@ int		main(void)
 	**		Mandantory part
 	*/
 
-		ft_check_strlen(s);
-		ft_check_strcpy(s);
-		ft_check_strcmp();
-		ft_check_write();
-		ft_check_read();
+		//ft_check_strlen(s);
+		//ft_check_strcpy(s);
+		//ft_check_strcmp();
+		//ft_check_write();
+		//ft_check_read();
 		ft_check_strdup(s);
 	#endif
 
@@ -169,7 +167,8 @@ void	ft_check_read()
 
 void	ft_check_strdup(char *s[])
 {
-	char *string;
+	char *string = NULL;
+	
 	for (int i = 0; i < 3; ++i)
 	{
 		printf("\norig strdup	= |%s|\n", (string = strdup(s[i])));
@@ -182,27 +181,29 @@ void	ft_check_strdup(char *s[])
 
 #ifdef BONUS_PART
 
-#define NUMBER 0
+#define NUMBER 20
 void	ft_check_list_size(void)
 {
-	t_list *list;
 	t_list *head;
 	t_list *tmp;
 
 	head = NULL;
-	tmp = NULL;
-	for (int i = 0; i < NUMBER; ++i)
+	for (long i = 1; i <= NUMBER; ++i)
 	{
-		
-		list = malloc(sizeof(t_list));
-		if (tmp)
-			tmp->next = list;
-		list->next = NULL;
-		tmp = list;
-		if (i == 0)
-			head = list;
+		ft_list_push_front(&head, (void *)i);
 	}
 	printf("\nsize of list = %d\n\n", ft_list_size(head));
+
+	tmp = head;
+	for (int i = NUMBER; i > 0; i--)
+	{
+		printf("i		= %d\n", i);
+		printf("Adr_tmp		= %p\n", tmp);
+		int x = *((int*)(&tmp->data));
+		printf("tmp->data	= %d\n", x);
+		printf("tmp->next	= %p\n\n", (void *)tmp->next);
+		tmp = tmp->next;
+	}
 }
 
 void 	ft_check_list_push_front(void)

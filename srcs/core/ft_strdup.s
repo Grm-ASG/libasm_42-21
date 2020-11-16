@@ -6,6 +6,9 @@ extern ft_strcpy
 	global ft_strdup
 
 ft_strdup:
+	xor rax, rax
+	cmp rdi, 0
+	je .end
 	push rdi
 	call ft_strlen
 	inc rax
@@ -19,10 +22,13 @@ ft_strdup:
 	ret
 
 .error:
+	pop rdi
 	neg rax
 	push rax
 	call __errno_location
 	pop	rdx
 	mov	[rax], rdx
-    mov rax, -1				; rax = -1
-    ret						; return rax
+    xor rax, rax			; rax = NULL
+
+.end:
+	ret

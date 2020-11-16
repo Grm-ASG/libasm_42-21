@@ -17,14 +17,16 @@ ft_list_push_front:
 	mov rcx, qword[rdi]			;	rcx = *head
 	mov qword[rax + 8], rcx		;	list.next = rcx
 	mov qword[rdi], rax			;	head = list
-
-.end:
-	xor	rax, rax				;	rax to zero, why not?
-	ret							;	return ;
+	jmp .end
 
 .error:
+	pop rsi						;	get from stack my data
+	pop rdi						;	get from stack my data
 	neg rax						;	rax = rax * -1
 	mov rdx, rax				;	rdx = rax
 	call __errno_location		;	rax = &errno
 	mov	[rax], rdx				;	errno = rdx
     ret							;	return ;
+	
+.end:
+	ret							;	return ;
