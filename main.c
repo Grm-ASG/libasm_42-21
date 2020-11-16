@@ -6,7 +6,7 @@
 /*   By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 18:39:42 by imedgar           #+#    #+#             */
-/*   Updated: 2020/11/16 11:35:46 by imedgar          ###   ########.fr       */
+/*   Updated: 2020/11/16 11:56:06 by imedgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,8 +172,10 @@ void	ft_check_strdup(char *s[])
 	for (int i = 0; i < 3; ++i)
 	{
 		printf("\norig strdup	= |%s|\n", (string = strdup(s[i])));
+		printf("origin strlen	= |%d|\n", (int)strlen(string));
 		free(string);
 		printf("asm strdup	= |%s|\n", (string = ft_strdup(s[i])));
+		printf("asm strlen	= |%d|\n", (int)strlen(string));
 		free(string);
 	}
 }
