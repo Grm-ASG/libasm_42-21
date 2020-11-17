@@ -9,10 +9,10 @@ ft_list_push_front:
 	push rsi					;	save rsi on the stack
 	mov rdi, 16					;	set rdi to value 16
 	call malloc					;	call malloc with allocating 16 bytes
-	cmp rax, 0					;	check return value of malloc
-	jl .error					;	if error occures jump to .error
 	pop rsi						;	get value from stack
 	pop rdi						;	get value from stack
+	cmp rax, 0					;	check return value of malloc
+	je .error					;	if error occures jump to .error
 	mov qword[rax], rsi			;	list.value = data
 	mov rcx, qword[rdi]			;	rcx = *head
 	mov qword[rax + 8], rcx		;	list.next = rcx
@@ -20,13 +20,10 @@ ft_list_push_front:
 	jmp .end
 
 .error:
-	pop rsi						;	get from stack my data
-	pop rdi						;	get from stack my data
 	neg rax						;	rax = rax * -1
 	mov rdx, rax				;	rdx = rax
 	call __errno_location		;	rax = &errno
 	mov	[rax], rdx				;	errno = rdx
-    ret							;	return ;
 	
 .end:
 	ret							;	return ;

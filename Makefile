@@ -6,7 +6,7 @@
 #    By: imedgar <imedgar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/10 18:08:39 by imedgar           #+#    #+#              #
-#    Updated: 2020/11/16 08:56:56 by imedgar          ###   ########.fr        #
+#    Updated: 2020/11/17 16:09:22 by imedgar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ OBJ_TEST	=	$(SRC_TEST:.c=.o)
 AS			=	nasm
 ASFLAGS		=	-gdwarf -f elf64 -I $(DIR_INC)
 GCC			=	gcc
-CFLAGS		=	-g -no-pie  -I $(DIR_INC) -Wall -Wextra -Werror
+CFLAGS		=	-g -no-pie  -I $(DIR_INC) #-Wall -Wextra -Werror
 RM			=	rm -f
 AR			=	ar rcs
 
@@ -62,14 +62,14 @@ clean:
 	$(RM) -r $(DIR_OBJ)
 
 fclean: clean
-	$(RM) $(NAME) $(OBJ_TEST) test
+	$(RM) $(NAME) $(OBJ_TEST) test read*.txt *example*.txt
 
 re: fclean all
 
 bonus:
 	$(MAKE) BONUS="YES" all --no-print-directory
 	
-test: fclean test_compile
+test: re test_compile
 	./test
 
 test_compile: $(NAME) $(OBJ_TEST)
